@@ -1,7 +1,8 @@
+from .pipelines import DIR_OUTPUT
+
 BOT_NAME = 'pep_parse'
 
 SPIDER_MODULES = ['pep_parse.spiders']
-NEWSPIDER_MODULE = 'pep_parse.spiders'
 
 ROBOTSTXT_OBEY = True
 
@@ -10,7 +11,7 @@ ITEM_PIPELINES = {
 }
 
 FEEDS = {
-    'results/pep_%(time)s.csv': {
+    f'{DIR_OUTPUT}/pep_%(time)s.csv': {
         'format': 'csv',
         'fields': ['number', 'name', 'status'],
         'overwrite': True
