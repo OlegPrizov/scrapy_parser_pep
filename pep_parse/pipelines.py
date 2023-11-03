@@ -1,4 +1,5 @@
 import datetime as dt
+from collections import defaultdict
 from pathlib import Path
 
 BASE_DIR = Path(__file__).parent.parent
@@ -12,16 +13,13 @@ TIME_NOW = dt.datetime.now().strftime(DT_FORMAT)
 class PepParsePipeline:
 
     def open_spider(self, spider):
-        self.results = {}
+        self.results = defaultdict(int)
         self.results_dir = BASE_DIR / DIR_OUTPUT
         self.results_dir.mkdir(exist_ok=True)
 
     def process_item(self, item, spider):
         pep_status = item['status']
-        if self.results.get(pep_status):
-            self.results[pep_status] += 1
-        else:
-            self.results[pep_status] = 1
+        self.results[pep_status] += 1
         return item
 
     def close_spider(self, spider):
