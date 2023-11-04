@@ -23,10 +23,11 @@ class PepParsePipeline:
         return item
 
     def close_spider(self, spider):
-        file_dir = self.results_dir / FILE_NAME.format(
+        file_path = self.results_dir / FILE_NAME.format(
             time=dt.datetime.now().strftime(DT_FORMAT))
-        data = [('Статус', 'Количество'),
+        with open(file_path, mode='w', encoding='utf-8') as f:
+            csv.writer(f, dialect=csv.unix_dialect).writerows(
+                [('Статус', 'Количество'),
                 *self.results.items(),
                 ('Всего', sum(self.results.values()))]
-        with open(file_dir, mode='w', encoding='utf-8') as f:
-            csv.writer(f, dialect=csv.unix_dialect).writerows(data)
+            )
