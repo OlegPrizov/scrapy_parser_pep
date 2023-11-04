@@ -1,6 +1,5 @@
-from .pipelines import DIR_OUTPUT
-
 BOT_NAME = 'pep_parse'
+DIR_OUTPUT = 'results'
 
 SPIDER_MODULES = ['pep_parse.spiders']
 

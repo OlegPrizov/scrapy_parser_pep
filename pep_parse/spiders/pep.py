@@ -9,7 +9,7 @@ class PepSpider(scrapy.Spider):
     start_urls = [f'https://{domain}/' for domain in allowed_domains]
 
     def parse(self, response):
-        numerical_index = response.xpath('//*[@id="numerical-index"]')
+        numerical_index = response.css('#numerical-index')
         for pep_url in numerical_index.css('tbody a[href]::attr(href)'):
             yield response.follow(pep_url, callback=self.parse_pep)
 
